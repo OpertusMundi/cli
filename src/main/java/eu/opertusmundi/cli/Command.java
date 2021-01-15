@@ -15,8 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import eu.opertusmundi.common.model.ApplicationException;
-
 @Component
 public class Command implements ApplicationRunner {
 
@@ -81,10 +79,8 @@ public class Command implements ApplicationRunner {
 
         try {
             this.run(subcommand, pargs, options);
-        } catch (final ApplicationException e) {
-            // Format this top-level application exception
-            final ApplicationException e1 = e.withFormattedMessage(this.messageSource, Locale.getDefault());
-            logger.error("The subcommand has failed: {}", e1.getMessage());
+        } catch (final Exception ex) {
+            logger.error("The subcommand has failed: {}", ex.getMessage());
         }
     }
 
