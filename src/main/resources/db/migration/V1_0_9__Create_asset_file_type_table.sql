@@ -1,5 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS "file"; 
-
 --
 -- File types
 --
