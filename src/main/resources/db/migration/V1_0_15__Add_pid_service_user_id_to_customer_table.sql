@@ -1,0 +1,1 @@
+ALTER TABLE web.customer_professional ADD IF NOT EXISTS pid_service_user_id integer;
