@@ -50,9 +50,9 @@ CREATE SEQUENCE "billing".payin_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 CREATE TABLE "billing".payin
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('billing.payin_id_seq'::regclass),
-  "key"                             uuid                    NOT NULL, 
+  "key"                             uuid                    NOT NULL,
   -- Reference to the platform user
-  "account"                         integer                 NOT NULL,
+  "consumer"                        integer                 NOT NULL,
   -- Price aggregate values from payment items
   "total_price"                     numeric(20,6)           NOT NULL,
   "total_price_excluding_tax"       numeric(20,6)           NOT NULL,
@@ -62,10 +62,10 @@ CREATE TABLE "billing".payin
   "created_on"                      timestamp               NOT NULL,
   "executed_on"                     timestamp,
   -- PayIn status
-  -- 
+  --
   -- CREATED   Created new PayIn
   -- FAILED    PayIn execution has failed
-  -- SUCCEEDED PayIn exeuction has succeeded
+  -- SUCCEEDED PayIn execution has succeeded
   --
   -- Status is updated either manually after a successful PayIn e.g. Card Direct or
   -- by a webhook e.g. BankWire transfer
@@ -77,12 +77,13 @@ CREATE TABLE "billing".payin
   "provider_payin"                  character varying(64)   NOT NULL,
   -- User friendly reference code for support
   "reference_number"                character varying       NOT NULL,
+  -- External payment provider (MANGOPAY) API result
   "result_code"                     character varying,
   "result_message"                  character varying,
   CONSTRAINT pk_payin PRIMARY KEY ("id"),
   CONSTRAINT uq_payin_key UNIQUE ("key"),
   CONSTRAINT uq_payin_reference_number UNIQUE ("reference_number"),
-  CONSTRAINT fk_payin_account FOREIGN KEY ("account")
+  CONSTRAINT fk_payin_consumer FOREIGN KEY ("consumer")
       REFERENCES web.account ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE SET NULL,
   CONSTRAINT chk_payin_status_enum CHECK
@@ -129,11 +130,11 @@ CREATE SEQUENCE "billing".payin_status_hist_id_seq INCREMENT 1 MINVALUE 1 START 
 CREATE TABLE "billing".payin_status_hist
 (
   "id"                    integer                 NOT NULL   DEFAULT nextval('billing.payin_status_hist_id_seq'::regclass),
-  "payin"                 integer                 NOT NULL,  
+  "payin"                 integer                 NOT NULL,
   "status"                character varying(64)   NOT NULL,
   "status_updated_on"     timestamp               NOT NULL,
   CONSTRAINT pk_payin_status_hist PRIMARY KEY (id),
-  CONSTRAINT fk_payin_status_hist_order FOREIGN KEY ("payin")
+  CONSTRAINT fk_payin_status_hist_payin FOREIGN KEY ("payin")
       REFERENCES "billing".payin (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT chk_payin_status_hist_status_enum CHECK
@@ -146,15 +147,18 @@ CREATE TABLE "billing".payin_status_hist
 
 CREATE SEQUENCE "order".order_id_seq INCREMENT 1 MINVALUE 1000000 START 1000000 CACHE 1;
 
-CREATE TABLE "order".order
+CREATE TABLE "order"."order"
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('order.order_id_seq'::regclass),
   -- Unique key used as a business key for the purchase workflow
-  "key"                             uuid                    NOT NULL, 
-  "account"                         integer                 NOT NULL,   
+  "key"                             uuid                    NOT NULL,
+  -- Consumer account
+  "consumer"                        integer                 NOT NULL,
   -- Reference to the cart instance used during the checkout operation
-  "cart"                            integer                 NOT NULL,  
+  "cart"                            integer                 NOT NULL,
+  -- Reference to the PayIn object created for this order
   "payin"                           integer,
+  -- Price aggregate values from order items
   "total_price"                     numeric(20,6)           NOT NULL,
   "total_price_excluding_tax"       numeric(20,6)           NOT NULL,
   "total_tax"                       numeric(20,6)           NOT NULL,
@@ -173,10 +177,12 @@ CREATE TABLE "order".order
   "delivery_method"                 character varying(64)   NOT NULL,
   -- User friendly reference code for support
   "reference_number"                character varying,
+  -- Consumer country 2 letter code as defined in ISO 3166
+  "country"                         character varying(3),
   CONSTRAINT pk_order PRIMARY KEY (id),
   CONSTRAINT uq_order_key UNIQUE ("key"),
   CONSTRAINT uq_order_reference_number UNIQUE ("reference_number"),
-  CONSTRAINT fk_order_account FOREIGN KEY ("account")
+  CONSTRAINT fk_order_consumer FOREIGN KEY ("consumer")
       REFERENCES web.account (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE SET NULL,
   CONSTRAINT fk_order_cart FOREIGN KEY ("cart")
@@ -185,9 +191,9 @@ CREATE TABLE "order".order
   CONSTRAINT fk_order_payin FOREIGN KEY ("payin")
       REFERENCES "billing".payin (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE SET NULL,
-  CONSTRAINT chk_order_status_enum CHECK 
+  CONSTRAINT chk_order_status_enum CHECK
       ("status" IN ('CREATED', 'CHARGED' ,'PENDING', 'CANCELLED', 'REFUNDED', 'SUCCEEDED')),
-  CONSTRAINT chk_order_delivery_method_enum CHECK 
+  CONSTRAINT chk_order_delivery_method_enum CHECK
       ("delivery_method" IN ('DIGITAL_PLATFORM', 'DIGITAL_PROVIDER', 'PHYSICAL_PROVIDER'))
 );
 
@@ -200,7 +206,7 @@ CREATE SEQUENCE "order".order_status_hist_id_seq INCREMENT 1 MINVALUE 1 START 1 
 CREATE TABLE "order".order_status_hist
 (
   "id"                    integer                 NOT NULL   DEFAULT nextval('order.order_status_hist_id_seq'::regclass),
-  "order"                 integer                 NOT NULL,  
+  "order"                 integer                 NOT NULL,
   "status"                character varying(64)   NOT NULL,
   "status_updated_on"     timestamp               NOT NULL,
   -- Optional user id. If the property is updated by the system without user interaction,
@@ -213,7 +219,7 @@ CREATE TABLE "order".order_status_hist
   CONSTRAINT fk_order_status_hist_status_updated_by FOREIGN KEY ("status_updated_by")
       REFERENCES "web".account (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT chk_order_status_hist_status_enum CHECK 
+  CONSTRAINT chk_order_status_hist_status_enum CHECK
       ("status" IN ('CREATED', 'PENDING', 'CANCELLED', 'REFUNDED', 'SUCCEEDED'))
 );
 
@@ -227,12 +233,16 @@ CREATE TABLE "order".order_item
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('order.order_item_id_seq'::regclass),
   "order"                           integer                 NOT NULL,
+  -- Reference to the provider account selling specified item
+  "provider"                        integer                 NOT NULL,
   -- Invoice line number
   "index"                           integer				   	NOT NULL,
   -- Item type: Catalogue Asset, Service (WMS, WMS, Data API, etc), BUNDLE, Value-Added-Service (VAS)
   "type"                            character varying(64)   NOT NULL,
   -- Item unique persistent identifier
   "item"                            character varying       NOT NULL,
+  -- Item version
+  "version"                         character varying(10)   NOT NULL,
   -- Item description (at the time of the purchase)
   "description"                     character varying       NOT NULL,
   -- Pricing model (at the time of the purchase)
@@ -241,13 +251,18 @@ CREATE TABLE "order".order_item
   "total_price"                     numeric(20,6)           NOT NULL,
   "total_price_excluding_tax"       numeric(20,6)           NOT NULL,
   "total_tax"                       numeric(20,6)           NOT NULL,
+  -- Item segment (first topic if any exist)
+  "segment"                         character varying(64),
   -- Optional discount code
   "discount_code"                   character varying(64),
   CONSTRAINT pk_order_item PRIMARY KEY (id),
   CONSTRAINT fk_order_item_order FOREIGN KEY ("order")
       REFERENCES "order".order (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT chk_order_item_type_enum CHECK 
+  CONSTRAINT fk_order_item_provider FOREIGN KEY ("provider")
+      REFERENCES web.account ("id") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE SET NULL,
+  CONSTRAINT chk_order_item_type_enum CHECK
       ("type" IN ('ASSET', 'SERVICE', 'BUNDLE', 'VAS'))
 );
 
@@ -266,7 +281,7 @@ CREATE TABLE "web".account_asset
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('web.account_asset_id_seq'::regclass),
   -- Asset owner
-  "account"                         integer                 NOT NULL,   
+  "consumer"                        integer                 NOT NULL,
   -- Order of purchase. For updated assets the order is copied
   "order"                           integer					NOT NULL,
   -- Asset PID (asset version derives from the PID)
@@ -285,13 +300,13 @@ CREATE TABLE "web".account_asset
   -- Asset source: PURCHASE (new asset), UPDATE (version update of existing asset)
   "source"                          character varying(32)   NOT NULL,
   CONSTRAINT pk_account_asset PRIMARY KEY (id),
-    CONSTRAINT fk_account_asset_account FOREIGN KEY ("account")
+    CONSTRAINT fk_account_asset_consumer FOREIGN KEY ("consumer")
       REFERENCES web.account (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT fk_account_asset_order FOREIGN KEY ("order")
       REFERENCES "order".order (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT chk_account_asset_source_enum CHECK 
+  CONSTRAINT chk_account_asset_source_enum CHECK
       ("source" IN ('PURCHASE', 'UPDATE'))
 );
 
@@ -303,27 +318,31 @@ CREATE SEQUENCE "web".account_sub_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 
 CREATE TABLE "web".account_subscription
 (
-  "id"                              integer                 NOT NULL   DEFAULT nextval('web.account_sub_id_seq'::regclass),
+  "id"                              integer                NOT NULL   DEFAULT nextval('web.account_sub_id_seq'::regclass),
   -- Subscription owner
-  "account"                         integer                 NOT NULL,
+  "consumer"                        integer                NOT NULL,
+  -- Subscription seller
+  "provider"                        integer                NOT NULL,
   -- Order of purchase. For updated assets the order is copied
-  "order"							              integer					        NOT NULL,
+  "order"                           integer                NOT NULL,
   -- Service PID
-  "service" 					              character varying       NOT NULL,
+  "service"                         character varying      NOT NULL,
   -- Date subscription added to user account. Next billing date is computed based on this date
-  "added_on"						            timestamp               NOT NULL,
+  "added_on"                        timestamp              NOT NULL,
   -- Date updated i.e. add new SKU records
-  "updated_on"                      timestamp               NOT NULL,
+  "updated_on"                      timestamp              NOT NULL,
   -- Service source: PURCHASE (new asset), UPDATE (version update of existing asset)
-  "source"							            character varying(32)	  NOT NULL,
+  "source"                          character varying(32)  NOT NULL,
+  -- Item segment (first topic if any exist)
+  "segment"                         character varying(64),
   CONSTRAINT pk_account_sub PRIMARY KEY (id),
-  CONSTRAINT fk_account_sub_account FOREIGN KEY ("account")
+  CONSTRAINT fk_account_sub_consumer FOREIGN KEY ("consumer")
       REFERENCES web.account (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT fk_account_sub_order FOREIGN KEY ("order")
       REFERENCES "order".order (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT chk_account_subscription_source_enum CHECK 
+  CONSTRAINT chk_account_subscription_source_enum CHECK
       ("source" IN ('PURCHASE', 'UPDATE'))
 );
 
@@ -337,7 +356,7 @@ CREATE TABLE "web".account_subscription_sku
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('web.account_subscription_sku_id_seq'::regclass),
   -- Parent subscription
-  "subscription"                    integer                 NOT NULL,   
+  "subscription"                    integer                 NOT NULL,
   -- Order item
   "order"                           integer                 NOT NULL,
   -- Available calls/rows
@@ -365,7 +384,7 @@ CREATE TABLE "billing".subscription_billing
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('billing.subscription_billing_id_seq'::regclass),
   -- Parent subscription
-  "subscription"                    integer                 NOT NULL,   
+  "subscription"                    integer                 NOT NULL,
   -- Billing interval
   "from_date"                       timestamp               NOT NULL,
   "to_date"                         timestamp               NOT NULL,
@@ -375,6 +394,10 @@ CREATE TABLE "billing".subscription_billing
   -- Pre-purchased Calls/Rows
   "sku_total_rows"                  integer                 NOT NULL,
   "sku_total_calls"                 integer                 NOT NULL,
+  -- Price
+  "total_price"                     numeric(20,6)           NOT NULL,
+  "total_price_excluding_tax"       numeric(20,6)           NOT NULL,
+  "total_tax"                       numeric(20,6)           NOT NULL,
   CONSTRAINT pk_subscription PRIMARY KEY (id),
   CONSTRAINT fk_subscription_subscription FOREIGN KEY ("subscription")
       REFERENCES "web".account_subscription (id) MATCH SIMPLE
@@ -397,8 +420,8 @@ CREATE TABLE "billing".payin_item
   "index"                          integer                 NOT NULL,
   -- Item type: ORDER, SUBSCRIPTION
   "type"			                     character varying(64)   NOT NULL,
-  "order"                          int,
-  "subscription_billing"           int,
+  "order"                          integer,
+  "subscription_billing"           integer,
   -- Payment provider Tranfer unique identifier
   "tranfer"                        character varying(64),
   -- Funds transfered from the seller's wallet to her bank account
@@ -418,7 +441,7 @@ CREATE TABLE "billing".payin_item
   CONSTRAINT fk_payin_item_subscription_billing FOREIGN KEY ("subscription_billing")
       REFERENCES "billing".subscription_billing (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE,
-  CONSTRAINT chk_payin_item_type_enum CHECK 
+  CONSTRAINT chk_payin_item_type_enum CHECK
       ("type" IN ('ORDER', 'SUBSCRIPTION')),
   CONSTRAINT chk_payin_item_tranfer_status_enum CHECK
       ("tranfer_status" IN ('CREATED', 'FAILED', 'SUCCEEDED'))
@@ -433,12 +456,12 @@ CREATE SEQUENCE "billing".payout_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 CREATE TABLE "billing".payout
 (
   "id"                              integer                 NOT NULL   DEFAULT nextval('billing.payout_id_seq'::regclass),
-  "key"                             uuid                    NOT NULL, 
+  "key"                             uuid                    NOT NULL,
   -- Reference to the platform user
   "account"                         integer                 NOT NULL,
   -- Payment provider PayOut id
   "provider_payout"         character varying(64),
-  -- Funds transfered from the seller's wallet to her bank account
+  -- Funds transferred from the seller's wallet to her bank account
   "credited_funds"                  numeric(20,6)           NOT NULL,
   -- Fees collected
   "platform_fees"                   numeric(20,6)           NOT NULL,
