@@ -7,7 +7,7 @@
 
     <groupId>eu.opertusmundi</groupId>
     <artifactId>opertus-mundi-cli</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>[opertus-mundi] Client</name>
 
     <packaging>jar</packaging>
@@ -20,7 +20,7 @@
     </parent>
 
     <dependencies>
-        
+
         <!-- Spring-Boot starter dependencies -->
 
         <dependency>
@@ -49,14 +49,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
    		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-       
-        <!-- JDBC drivers -->    
-      
+
+        <!-- JDBC drivers -->
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -86,7 +86,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Inject version information into the build -->
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
@@ -111,7 +111,7 @@
 					<commitIdGenerationMode>full</commitIdGenerationMode>
 				</configuration>
 			</plugin>
-			
+
 			<!-- Configure unit tests -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -121,7 +121,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			
+
 			<!-- Configure integration tests -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
