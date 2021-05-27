@@ -422,15 +422,15 @@ CREATE TABLE "billing".payin_item
   "type"			                     character varying(64)   NOT NULL,
   "order"                          integer,
   "subscription_billing"           integer,
-  -- Payment provider Tranfer unique identifier
-  "tranfer"                        character varying(64),
-  -- Funds transfered from the seller's wallet to her bank account
-  "tranfer_credited_funds"         numeric(20,6),
+  -- Payment provider Transfer unique identifier
+  "transfer"                        character varying(64),
+  -- Funds transferred from the seller's wallet to her bank account
+  "transfer_credited_funds"         numeric(20,6),
   -- Fees collected
-  "tranfer_platform_fees"          numeric(20,6),
-  "tranfer_status"                 character varying(64),
-  "tranfer_created_on"             timestamp,
-  "tranfer_executed_on"            timestamp,
+  "transfer_platform_fees"          numeric(20,6),
+  "transfer_status"                 character varying(64),
+  "transfer_created_on"             timestamp,
+  "transfer_executed_on"            timestamp,
   CONSTRAINT pk_payin_item PRIMARY KEY (id),
   CONSTRAINT fk_payin_item_payin FOREIGN KEY ("payin")
       REFERENCES "billing".payin (id) MATCH SIMPLE
@@ -443,8 +443,8 @@ CREATE TABLE "billing".payin_item
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT chk_payin_item_type_enum CHECK
       ("type" IN ('ORDER', 'SUBSCRIPTION')),
-  CONSTRAINT chk_payin_item_tranfer_status_enum CHECK
-      ("tranfer_status" IN ('CREATED', 'FAILED', 'SUCCEEDED'))
+  CONSTRAINT chk_payin_item_transfer_status_enum CHECK
+      ("transfer_status" IN ('CREATED', 'FAILED', 'SUCCEEDED'))
 );
 
 --
