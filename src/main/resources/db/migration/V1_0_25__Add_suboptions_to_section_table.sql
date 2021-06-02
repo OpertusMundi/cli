@@ -1,0 +1,1 @@
+ALTER TABLE web.section ADD IF NOT EXISTS suboptions JSON;
