@@ -1,0 +1,1 @@
+ALTER TABLE "billing".payin_item ADD IF NOT EXISTS "transfer_key" uuid NOT NULL;
