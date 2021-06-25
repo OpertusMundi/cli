@@ -1,0 +1,26 @@
+DELETE FROM spatial.language_eu;
+
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('bg', 'Bulgarian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('hr', 'Croatian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('cs', 'Czech', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('da', 'Danish', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('nl', 'Dutch', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('en', 'English', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('et', 'Estonian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('fi', 'Finnish', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('fr', 'French', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('de', 'German', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('el', 'Greek', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('hu', 'Hungarian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('ga', 'Irish', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('it', 'Italian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('lv', 'Latvian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('lt', 'Lithuanian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('mt', 'Maltese', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('pl', 'Polish', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('pt', 'Portuguese', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('ro', 'Romanian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('sk', 'Slovak', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('sl', 'Slovenian', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('es', 'Spanish', true);
+INSERT INTO spatial.language_eu (code, name, active) VALUES ('sv', 'Swedish', true);
