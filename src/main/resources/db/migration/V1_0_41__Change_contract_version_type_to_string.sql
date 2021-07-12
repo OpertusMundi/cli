@@ -1,0 +1,1 @@
+ALTER TABLE "order".order_item ALTER COLUMN "contract_template_version" TYPE character varying;
