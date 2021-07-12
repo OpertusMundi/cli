@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS idx_payin_provider_payin ON "billing".payin USING btree ("provider_payin");

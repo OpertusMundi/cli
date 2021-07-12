@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS "spatial".country RENAME TO country_capital_city;
