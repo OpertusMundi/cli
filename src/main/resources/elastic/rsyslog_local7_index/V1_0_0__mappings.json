@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "timestamp": {
+      "type": "date"
+    },
+    "hostname": {
+      "type": "wildcard"
+    },
+    "fromhost": {
+      "type": "wildcard"
+    },
+    "message": {
+      "type": "text"
+    },
+    "severity": {
+      "type": "keyword",
+      "normalizer": "lowercase"
+    },
+    "severity-number": {
+      "type": "short"
+    },
+    "facility": {
+      "type": "keyword",
+      "normalizer": "lowercase"
+    },
+    "tag": {
+      "type": "wildcard"
+    },
+    "program-name": {
+      "type": "wildcard"
+    },
+    "procid": {
+      "type": "short"
+    },
+    "thread": {
+      "type": "wildcard"
+    },
+    "exception-message": {
+      "type": "text"
+    },
+    "exception": {
+      "type": "text"
+    },
+    "logger": {
+      "type": "wildcard"
+    }
+  }
+}
+
