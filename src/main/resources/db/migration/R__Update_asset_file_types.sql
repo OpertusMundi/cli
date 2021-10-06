@@ -16,10 +16,16 @@ insert into "file".asset_file_type ("category", "format", "extensions", "allow_b
 ('RASTER', 'HFA',            'img',           false, null, true,  'Erdas Imagine'),
 ('RASTER', 'USGSDEM',        'dem',           false, null, true,  'USGS ASCII DEM (and CDED)'),
 ('RASTER', 'AAIGrid',        'asc',           false, null, true,  'Arc/Info ASCII Grid'),
-('RASTER', 'AIG',            'adf',          true,  null, true,  'Arc/Info Binary Grid (typically several .adf files in a common directory; possibly accompanied with .prj)'),
+('RASTER', 'AIG',            'adf',           true,  null, true,  'Arc/Info Binary Grid (typically several .adf files in a common directory; possibly accompanied with .prj)'),
 ('RASTER', 'MrSID',          'sid',           true,  null, true,  'Multi-resolution Seamless Image Database; usually accompanied with a world file .sdw')
 ;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
 ('NETCDF', 'netCDF',         'nc',      false, null, true, 'NetCDF: Network Common Data Form')
+;
+
+insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
+('TABULAR', 'CSV',            'csv,txt', false, null, true,  'Comma separated values; different separators may be used'),
+('TABULAR', 'XLS',            'xls',     false, null, true,  'MS Excel format'),
+('TABULAR', 'XLSX',           'xlsx',    false, null, true,  'MS Office Open XML spreadsheet')
 ;
