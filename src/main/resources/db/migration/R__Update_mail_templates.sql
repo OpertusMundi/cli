@@ -45,6 +45,18 @@ insert into "messaging".mail_template (
 insert into "messaging".mail_template (
   "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
 ) values
+  ('SUPPLIER_PUBLISHING_ACCEPTED', 'Asset publishing accepted', 'supplier-publication-accepted', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('SUPPLIER_PUBLISHING_REJECTED', 'Asset publishing rejected', 'supplier-publication-rejected', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
   ('CONSUMER_DIGITAL_DELIVERY_BY_SUPPLIER', 'Dataset ready for download', 'consumer-digital-delivery-by-supplier', 'Topio', 'support@topio.market', now())
 ;
 

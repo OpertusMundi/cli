@@ -43,3 +43,11 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('FILES_UPLOAD_COMPLETED', 'Files upload has been completed', now())
 ;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('ASSET_PUBLISHING_ACCEPTED', 'Asset {assetName} has been successfully published', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('ASSET_PUBLISHING_REJECTED', 'Publishing of {assetName} has been rejected by the helpdesk', now())
+;
