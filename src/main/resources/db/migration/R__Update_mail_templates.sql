@@ -87,6 +87,12 @@ insert into "messaging".mail_template (
 insert into "messaging".mail_template (
   "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
 ) values
+  ('CONSUMER_PURCHASE_APPROVED', 'Purchase approved', 'consumer-purchase-approved-by-supplier', 'Topio', 'support@topio.market', now())
+;
+  
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
   ('CONSUMER_PURCHASE_REJECTION', 'Purchase rejected', 'consumer-purchase-rejected-by-supplier', 'Topio', 'support@topio.market', now())
 ;
 

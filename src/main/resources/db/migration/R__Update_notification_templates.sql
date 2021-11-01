@@ -37,6 +37,10 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
+('PURCHASE_APPROVED', 'Purchase of asset {assetName} has been approved by supplier {supplierName}', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('PURCHASE_REJECTED', 'Purchase of asset {assetName} has been rejected by supplier {supplierName}', now())
 ;
 
