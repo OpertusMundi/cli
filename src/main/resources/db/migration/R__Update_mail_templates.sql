@@ -113,3 +113,15 @@ insert into "messaging".mail_template (
 ) values
   ('CATALOGUE_HARVEST_COMPLETED', 'Importing from external catalogue completed', 'catalogue-external-harvesting', 'Topio', 'support@topio.market', now())
 ;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('VENDOR_ACCOUNT_INVITATION', 'Join your organization on Topio', 'vendor-account-registration-activation-token', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('VENDOR_ACCOUNT_ACTIVATION_SUCCESS', 'Organization account activation completed', 'vendor-account-registration-complete', 'Topio', 'support@topio.market', now())
+;
