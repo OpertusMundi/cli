@@ -49,9 +49,13 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
-('ASSET_PUBLISHING_ACCEPTED', 'Asset {assetName} has been successfully published', now())
+('ASSET_PUBLISHING_ACCEPTED', 'Publishing of {assetName} has been approved by the helpdesk', now())
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('ASSET_PUBLISHING_REJECTED', 'Publishing of {assetName} has been rejected by the helpdesk', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('ASSET_PUBLISHED', 'Asset {assetName} has been successfully published', now())
 ;
