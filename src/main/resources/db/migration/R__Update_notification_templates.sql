@@ -9,7 +9,7 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
-('ORDER_CONFIRMATION', 'Order {orderID} is being processed', now())
+('ORDER_CONFIRMATION', 'Order {orderId} is being processed', now())
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
