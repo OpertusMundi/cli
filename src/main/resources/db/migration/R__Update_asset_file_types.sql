@@ -11,13 +11,13 @@ insert into "file".asset_file_type ("category", "format", "extensions", "allow_b
 ;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
-('RASTER', 'GTiff',          'tif,tiff,tff',  true,  null, true,  'GeoTIFF File Format; usually accompanied with a world file with extension .tfw, .tifw/.tiffw or .wld'),
-('RASTER', 'COG',            'tif,tiff,tff',  true,  null, true,  'Cloud Optimized GeoTIFF generator; usually accompanied with a world file with extension .tfw, .tifw/.tiffw or .wld'),
-('RASTER', 'HFA',            'img',           false, null, true,  'Erdas Imagine'),
-('RASTER', 'USGSDEM',        'dem',           false, null, true,  'USGS ASCII DEM (and CDED)'),
-('RASTER', 'AAIGrid',        'asc',           false, null, true,  'Arc/Info ASCII Grid'),
-('RASTER', 'AIG',            'adf',           true,  null, true,  'Arc/Info Binary Grid (typically several .adf files in a common directory; possibly accompanied with .prj)'),
-('RASTER', 'MrSID',          'sid',           true,  null, true,  'Multi-resolution Seamless Image Database; usually accompanied with a world file .sdw')
+('RASTER', 'GTiff',          'tif,tiff,tff',  false,  null, true,  'GeoTIFF File Format; usually accompanied with a world file with extension .tfw, .tifw/.tiffw or .wld'),
+('RASTER', 'COG',            'tif,tiff,tff',  false,  null, true,  'Cloud Optimized GeoTIFF generator; usually accompanied with a world file with extension .tfw, .tifw/.tiffw or .wld'),
+('RASTER', 'HFA',            'img',           false,  null, true,  'Erdas Imagine'),
+('RASTER', 'USGSDEM',        'dem',           false,  null, true,  'USGS ASCII DEM (and CDED)'),
+('RASTER', 'AAIGrid',        'asc',           false,  null, true,  'Arc/Info ASCII Grid'),
+('RASTER', 'AIG',            'adf',           false,  null, true,  'Arc/Info Binary Grid (typically several .adf files in a common directory; possibly accompanied with .prj)'),
+('RASTER', 'MrSID',          'sid',           false,  null, true,  'Multi-resolution Seamless Image Database; usually accompanied with a world file .sdw')
 ;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
