@@ -87,6 +87,12 @@ insert into "messaging".mail_template (
 insert into "messaging".mail_template (
   "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
 ) values
+  ('CONSUMER_INVOICE', 'Invoice', 'consumer-invoice', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
   ('CONSUMER_PURCHASE_NOTIFICATION', 'Purchase request awaiting confirmation', 'consumer-purchase-notification', 'Topio', 'support@topio.market', now())
 ;
 
