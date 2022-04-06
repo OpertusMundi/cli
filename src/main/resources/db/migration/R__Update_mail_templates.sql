@@ -137,3 +137,45 @@ insert into "messaging".mail_template (
 ) values
   ('VENDOR_ACCOUNT_ACTIVATION_SUCCESS', 'Organization account activation completed', 'vendor-account-registration-complete', 'Topio', 'support@topio.market', now())
 ;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('ACCOUNT_ACTIVATION_WELCOME', 'Welcome to Topio', 'account-registration-welcome', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('SUPPLIER_UPLOADED_CONTRACT_EVALUATION', 'Uploaded contract evaluation', 'supplier-contract-evaluation', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('SUPPLIER_UPLOADED_CONTRACT_ACCEPTED', 'Uploaded contract accepted', 'supplier-contract-accepted', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('SUPPLIER_UPLOADED_CONTRACT_REJECTED', 'Uploaded contract rejected', 'supplier-contract-rejected', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('SUPPLIER_CONTRACT_TO_BE_FILLED_OUT', 'Contract to be filled out', 'supplier-order-with-own-contract', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('CONSUMER_FILLED_OUT_CONTRACT', 'Contract filled out', 'consumer-order-with-own-contract', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
+  ('CONSUMER_SUPPLIER_CONTRACT_SIGNED', 'Contract is signed', 'own-contract-digitally-signed.html', 'Topio', 'support@topio.market', now())
+;
