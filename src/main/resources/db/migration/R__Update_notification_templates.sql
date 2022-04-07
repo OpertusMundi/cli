@@ -21,7 +21,7 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
-('PURCHASE_REMINDER', 'New purchase request for asset <span class="notification__text--bold">{assetName}</span>', now())
+('PURCHASE_REMINDER', 'New purchase request for asset <span class="notification__text--bold">{assetName}</span> awaiting either approval or rejection', now())
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
