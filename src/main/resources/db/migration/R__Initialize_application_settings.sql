@@ -1,0 +1,2 @@
+INSERT into web.settings values ('API_GATEWAY', 'announcement.text',    'HTML',    '',    null, now()) ON CONFLICT DO NOTHING;
+INSERT into web.settings values ('API_GATEWAY', 'announcement.enabled', 'BOOLEAN', 'false', null, now()) ON CONFLICT DO NOTHING;
