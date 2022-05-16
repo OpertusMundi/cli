@@ -15,6 +15,12 @@ insert into "messaging".mail_template (
 insert into "messaging".mail_template (
   "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
 ) values
+  ('ACCOUNT_PASSWORD_RESET', 'Password reset request', 'account-reset-password', 'Topio', 'support@topio.market', now())
+;
+
+insert into "messaging".mail_template (
+  "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
+) values
   ('ORDER_CONFIRMATION', 'Order confirmation', 'asset-purchase-confirm', 'Topio', 'support@topio.market', now())
 ;
 
@@ -101,7 +107,7 @@ insert into "messaging".mail_template (
 ) values
   ('CONSUMER_PURCHASE_APPROVED', 'Purchase approved', 'consumer-purchase-approved-by-supplier', 'Topio', 'support@topio.market', now())
 ;
-  
+
 insert into "messaging".mail_template (
   "type", "subject_template", "content_template", "sender_name", "sender_email", "modified_on"
 ) values
