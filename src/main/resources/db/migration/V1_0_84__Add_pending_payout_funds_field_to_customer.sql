@@ -1,0 +1,2 @@
+ALTER TABLE "web".customer_professional ADD IF NOT EXISTS "pending_payout_funds" numeric(20,6) NOT NULL DEFAULT(0);
+ALTER TABLE "web".customer_professional ADD IF NOT EXISTS "pending_payout_funds_updated_on" timestamp NULL;
