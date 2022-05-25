@@ -57,5 +57,9 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ;
 
 insert into "messaging".notification_template ("type", "text", "modified_on") values
+('ASSET_PUBLISHING_CANCELLED', 'Publishing of <span class="notification__text--bold">{assetName}</span> has failed', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('ASSET_PUBLISHED', 'Asset <span class="notification__text--bold">{assetName}</span> has been successfully published', now())
 ;
