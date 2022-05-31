@@ -63,3 +63,11 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('ASSET_PUBLISHED', 'Asset <span class="notification__text--bold">{assetName}</span> has been successfully published', now())
 ;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('COPY_FILE_TO_TOPIO_DRIVE_SUCCESS', 'Resource <span class="notification__text--bold">{resourceFileName}</span> from asset <span class="notification__text--bold">{assetName}</span> has been successfully copied to your drive', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('COPY_FILE_TO_TOPIO_DRIVE_ERROR', 'Copy operation of resource <span class="notification__text--bold">{resourceFileName}</span> from asset <span class="notification__text--bold">{assetName}</span> to your drive has failed', now())
+;
