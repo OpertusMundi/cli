@@ -1,0 +1,9 @@
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_line1"        DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_line2"        DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_city"         DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_region"       DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_postal_code"  DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "address_country"      DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "birthdate"            DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "nationality"          DROP NOT NULL;
+ALTER TABLE "web".customer_individual ALTER COLUMN "country_of_residence" DROP NOT NULL;
