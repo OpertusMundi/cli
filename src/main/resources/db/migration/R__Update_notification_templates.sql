@@ -71,3 +71,15 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('COPY_FILE_TO_TOPIO_DRIVE_ERROR', 'Copy operation of resource <span class="notification__text--bold">{resourceFileName}</span> from asset <span class="notification__text--bold">{assetName}</span> to your drive has failed', now())
 ;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('USER_SERVICE_PUBLISH_SUCCESS', 'User service <span class="notification__text--bold">{serviceTitle}</span> is ready', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('USER_SERVICE_PUBLISH_FAILURE', 'Publishing of user service <span class="notification__text--bold">{serviceTitle}</span> has failed', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('USER_SERVICE_REMOVE', 'User service <span class="notification__text--bold">{serviceTitle}</span> has been deleted', now())
+;

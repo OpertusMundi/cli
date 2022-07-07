@@ -1,0 +1,1 @@
+ALTER TABLE "web".settings ALTER COLUMN "key" TYPE character varying(256);
