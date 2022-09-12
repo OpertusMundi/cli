@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<project 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 >
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>eu.opertusmundi</groupId>
 	<artifactId>opertus-mundi-cli</artifactId>
-	<version>1.0.70</version>
+	<version>1.0.71</version>
 	<name>[opertus-mundi] Client</name>
 
 	<packaging>jar</packaging>
@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<dependency.locations.enabled>false</dependency.locations.enabled>
-		
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
