@@ -1,0 +1,1 @@
+ALTER TABLE "provider".asset_draft ADD IF NOT EXISTS data_profiling_enabled boolean DEFAULT(true) NOT NULL;
