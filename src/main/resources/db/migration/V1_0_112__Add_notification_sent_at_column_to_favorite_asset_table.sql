@@ -1,0 +1,1 @@
+ALTER TABLE "web".favorite_asset ADD IF NOT EXISTS "notification_sent_at" timestamp NULL;

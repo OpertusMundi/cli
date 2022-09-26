@@ -8,7 +8,7 @@
 
 	<groupId>eu.opertusmundi</groupId>
 	<artifactId>opertus-mundi-cli</artifactId>
-	<version>1.0.76</version>
+	<version>1.0.77</version>
 	<name>[opertus-mundi] Client</name>
 
 	<packaging>jar</packaging>
