@@ -83,3 +83,12 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('USER_SERVICE_REMOVE', 'User service <span class="notification__text--bold">{serviceTitle}</span> has been deleted', now())
 ;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('CONSUMER_REGISTRATION_CANCELLED', 'Consumer registration has failed: <span class="notification__text--bold">{errorMessage}</span>', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('PROVIDER_REGISTRATION_CANCELLED', 'Provider registration has failed: <span class="notification__text--bold">{errorMessage}</span>', now())
+;
+
