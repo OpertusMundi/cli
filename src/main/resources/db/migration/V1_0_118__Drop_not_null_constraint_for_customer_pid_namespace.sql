@@ -1,0 +1,1 @@
+ALTER TABLE "web".customer_professional ALTER COLUMN "pid_namespace" drop NOT NULL;
