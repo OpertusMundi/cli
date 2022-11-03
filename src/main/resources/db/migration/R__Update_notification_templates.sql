@@ -92,3 +92,6 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 ('PROVIDER_REGISTRATION_CANCELLED', 'Provider registration has failed: <span class="notification__text--bold">{errorMessage}</span>', now())
 ;
 
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('ASSET_AVAILABLE_TO_PURCHASE', 'Asset <span class="notification__text--bold">{assetName}</span> from your favorite list is now available to purchase! Come take a look!', now())
+;
