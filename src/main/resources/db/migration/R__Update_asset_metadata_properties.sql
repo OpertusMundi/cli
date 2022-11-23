@@ -3,6 +3,7 @@ delete from "provider".asset_metadata_property;
 insert into "provider".asset_metadata_property (asset_type, "name", "type") values
   ('NETCDF',  'mbrStatic',        'PNG'),
   ('RASTER',  'mbrStatic',        'PNG'),
+  ('RASTER',  'thumbnail',        'PNG'),
   ('TABULAR', 'samples',          'JSON'),
   ('VECTOR',  'clustersStatic',   'PNG'),
   ('VECTOR',  'convexHullStatic', 'PNG'),
