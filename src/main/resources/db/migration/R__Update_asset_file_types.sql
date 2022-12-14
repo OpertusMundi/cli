@@ -2,12 +2,12 @@ delete from "file".asset_file_type;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
 ('VECTOR', 'ESRI Shapefile', 'shp',     true,  'zip', true, 'Must be accompanied with at least .dbf and .shx; optional other files like .prj may also be part of a shapefile'),
-('VECTOR', 'CSV',            'csv,txt', false, null, true,  'Comma separated values; different separators may be used'),
-('VECTOR', 'GeoJSON',        'geojson', false, null, true,  null),
-('VECTOR', 'GML',            'gml',     false, null, true,  'Geography Markup Language'),
-('VECTOR', 'KML',            'kml,kmz', false, null, true,  'Keyhole Markup Language'),
-('VECTOR', 'XLS',            'xls',     false, null, true,  'MS Excel format'),
-('VECTOR', 'XLSX',           'xlsx',    false, null, true,  'MS Office Open XML spreadsheet')
+('VECTOR', 'CSV',            'csv,txt', true,  'zip', true,  'Comma separated values; different separators may be used'),
+('VECTOR', 'GeoJSON',        'geojson', false, null,  true,  null),
+('VECTOR', 'GML',            'gml',     false, null,  true,  'Geography Markup Language'),
+('VECTOR', 'KML',            'kml,kmz', false, null,  true,  'Keyhole Markup Language'),
+('VECTOR', 'XLS',            'xls',     false, null,  true,  'MS Excel format'),
+('VECTOR', 'XLSX',           'xlsx',    false, null,  true,  'MS Office Open XML spreadsheet')
 ;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
@@ -25,7 +25,7 @@ insert into "file".asset_file_type ("category", "format", "extensions", "allow_b
 ;
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
-('TABULAR', 'CSV',            'csv,txt', false, null, true,  'Comma separated values; different separators may be used'),
-('TABULAR', 'XLS',            'xls',     false, null, true,  'MS Excel format'),
-('TABULAR', 'XLSX',           'xlsx',    false, null, true,  'MS Office Open XML spreadsheet')
+('TABULAR', 'CSV',            'csv,txt', true,  'zip', true,  'Comma separated values; different separators may be used'),
+('TABULAR', 'XLS',            'xls',     false, null,  true,  'MS Excel format'),
+('TABULAR', 'XLSX',           'xlsx',    false, null,  true,  'MS Office Open XML spreadsheet')
 ;
