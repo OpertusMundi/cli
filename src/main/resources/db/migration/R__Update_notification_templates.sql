@@ -95,3 +95,30 @@ insert into "messaging".notification_template ("type", "text", "modified_on") va
 insert into "messaging".notification_template ("type", "text", "modified_on") values
 ('ASSET_AVAILABLE_TO_PURCHASE', 'Asset <span class="notification__text--bold">{assetName}</span> from your favorite list is now available to purchase! Come take a look!', now())
 ;
+
+-- Subscription and private OGC service billing notifications
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('SUBSCRIPTION_BILLING_SINGLE_CHARGE',
+ 'Subscription <span class=""""notification__text--bold"""">{asset_title}</span> has been charged <span class=""""notification__text--bold"""">{amount}</span> for the interval <span class=""""notification__text--bold"""">{intervalFrom}</span> - <span class=""""notification__text--bold"""">{intervalTo}</span>.  Payment due date is <span class=""""notification__text--bold"""">{dueDate}</span>.', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('SUBSCRIPTION_BILLING_PAYOFF',
+ 'Subscription <span class=""""notification__text--bold"""">{asset_title}</span> for the interval <span class=""""notification__text--bold"""">{intervalFrom}</span> - <span class=""""notification__text--bold"""">{intervalTo}</span> has been paid off.', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('USER_SERVICE_BILLING_SINGLE_CHARGE',
+ 'User service <span class=""""notification__text--bold"""">{service_title}</span> has been charged <span class=""""notification__text--bold"""">{amount}</span> for the interval <span class=""""notification__text--bold"""">{intervalFrom}</span> - <span class=""""notification__text--bold"""">{intervalTo}</span>.  Payment due date is <span class=""""notification__text--bold"""">{dueDate}</span>.', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('USER_SERVICE_BILLING_PAYOFF',
+ 'User service <span class=""""notification__text--bold"""">{service_title}</span> for the interval <span class=""""notification__text--bold"""">{intervalFrom}</span> - <span class=""""notification__text--bold"""">{intervalTo}</span> has been paid off.', now())
+;
+
+insert into "messaging".notification_template ("type", "text", "modified_on") values
+('SERVICE_BILLING_TOTAL_CHARGE',
+ 'Your active subscriptions and private OGC services have been charged <span class=""""notification__text--bold"""">{amount}</span> for the interval <span class=""""notification__text--bold"""">{intervalFrom}</span> - <span class=""""notification__text--bold"""">{intervalTo}</span>.  Payment due date is <span class=""""notification__text--bold"""">{dueDate}</span>.".', now())
+;
