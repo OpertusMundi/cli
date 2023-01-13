@@ -1,0 +1,1 @@
+ALTER TABLE "billing".payin_item ADD IF NOT EXISTS "key" UUID NOT NULL DEFAULT(uuid_generate_v4());
