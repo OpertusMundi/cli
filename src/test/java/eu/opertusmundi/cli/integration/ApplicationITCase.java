@@ -27,13 +27,14 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 public class ApplicationITCase {
 
-    private static final String DB_NAME     = "opertusmundi";
-    private static final String DB_USERNAME = "username";
-    private static final String DB_PASSWORD = "password";
+    private static final String POSTGIS_IMAGE_TAG = "10-2.5-alpine";
+    private static final String DB_NAME           = "opertusmundi";
+    private static final String DB_USERNAME       = "username";
+    private static final String DB_PASSWORD       = "password";
 
     @Container
     private static final JdbcDatabaseContainer<?> postgisContainer = new PostgisContainerProvider()
-        .newInstance("10-2.5-alpine")
+        .newInstance(POSTGIS_IMAGE_TAG)
         .withDatabaseName(DB_NAME)
         .withUsername(DB_USERNAME)
         .withPassword(DB_PASSWORD);
@@ -84,7 +85,8 @@ public class ApplicationITCase {
 
         final var versionRows = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, dbVersionTable);
 
-        // Assert that all migration scripts have been executed
+        // Since the property `spring.flyway.baseline-on-migrate` is `true`, an
+        // extra migration record is created
         assertThat(versionRows).isEqualTo(baselineOnMigrate ? migrationCount + 1 : migrationCount);
     }
 
